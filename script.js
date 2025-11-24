@@ -118,6 +118,7 @@ function clearNames() {
 }
 
 function spinWheel() {
+    window.dataLayer.push({ 'event': 'girar_ruleta' });
     if (isSpinning || names.length === 0) return;
 
     isSpinning = true;
@@ -160,7 +161,7 @@ function spinWheel() {
             const winnerName = names[winnerIndex];
             winnerDiv.textContent = `🎉 Ganador: ${winnerName}`;
 
-         
+
 
             // Si está activado "no repetir", eliminamos al ganador
             if (noRepeatSwitch.checked) {
@@ -186,7 +187,7 @@ function spinWheel() {
             console.log('========================');
         }
 
-        window.dataLayer.push({'event': 'girar_ruleta'});
+
     }
 
     requestAnimationFrame(animate);
@@ -253,12 +254,6 @@ spinBtn.addEventListener('click', spinWheel);
 
 
 
-
-
-// Cerrar el acordeón cuando se hace click en "Girar Ruleta"
-spinBtn.addEventListener('click', () => {
-    winnersAccordion.classList.remove('open');
-});
 
 nameInput.addEventListener('keydown', (e) => {
     if (e.ctrlKey && e.key === 'Enter') {
