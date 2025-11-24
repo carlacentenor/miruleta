@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Gira la ruleta al instante. Herramienta online gratuita para seleccionar nombres aleatorios de forma rápida y sencilla. ¡Pruébala ahora!">
+    <title>Ruleta de Nombres Online: Selector Aleatorio y Rápido</title>
+    <link rel="preload" href="styles.css" as="style">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preload" href="script.js" as="script">
+</head>
+
+<body>
+    <div class="container">
+        <div class="left-column">
+            <h1> Ruleta de Nombres</h1>
+            <div id="winner" class="winner"></div>
+            <div class="wheel-container">
+                <canvas id="wheel" width="400" height="400"></canvas>
+                <div class="pointer"></div>
+            </div>
+
+
+
+            <div class="controls">
+                <button id="spinBtn" class="btn btn-spin">Girar Ruleta</button>
+            </div>
+        </div>
+
+        <div class="right-column">
+            <div class="input-section">
+                <p>Escribe los nombres (un nombre único por línea)</p>
+                <textarea id="nameInput" rows="12">
+Alaïa
+Pedrito
+Carlita
+Sol
+Pepe
+Luna
+                </textarea>
+                <div class="button-group">
+                    <button id="addBtn" class="btn btn-add">Agregar Nombres</button>
+                    <button id="clearBtn" class="btn btn-clear">Eliminar Todos</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js" defer></script>
+</body>
+
+</html>
