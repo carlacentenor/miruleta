@@ -39,10 +39,9 @@ function drawWheel() {
 
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-    // El puntero apunta hacia arriba (ángulo -π/2 en canvas)
-    // Dibujamos cada segmento
+
     names.forEach((name, i) => {
-        // Ángulo inicial: empezamos desde arriba (-π/2) y vamos en sentido horario
+
         const startAngle = -Math.PI / 2 + currentRotation + (sliceAngle * i);
         const endAngle = startAngle + sliceAngle;
 
@@ -68,7 +67,7 @@ function drawWheel() {
         ctx.restore();
     });
 
-    // Centro de la ruleta
+    
     ctx.beginPath();
     ctx.arc(centerX, centerY, 15, 0, 2 * Math.PI);
     ctx.fillStyle = '#fff';
@@ -81,14 +80,14 @@ function drawWheel() {
 function getWinnerIndex() {
     const sliceAngle = (2 * Math.PI) / names.length;
 
-    // Normalizamos la rotación entre 0 y 2π
+    
     let normalized = currentRotation % (2 * Math.PI);
     while (normalized < 0) normalized += 2 * Math.PI;
 
-    // Calculamos qué fracción de vuelta hemos dado
+    
     const rotation = normalized / (2 * Math.PI);
 
-    // Convertimos a índice (invertimos porque gira horario)
+    
     const index = Math.floor((1 - rotation) * names.length) % names.length;
 
     return index;
@@ -102,8 +101,8 @@ function addNames() {
         .map(name => name.trim())
         .filter(name => name.length > 0);
 
-    allNames = [...new Set(newNames)]; // Guardamos todos los nombres sin duplicados
-    names = [...allNames]; // Copiamos para la ruleta
+    allNames = [...new Set(newNames)]; 
+    names = [...allNames]; 
     drawWheel();
     winnerDiv.textContent = '';
 }
@@ -127,7 +126,7 @@ function spinWheel() {
 
     const spins = 5 + Math.random() * 3;
 
-    // Calculamos el ángulo para caer en el CENTRO de un segmento (no en el borde)
+ 
     const sliceAngle = (2 * Math.PI) / names.length;
     const randomSegmentIndex = Math.floor(Math.random() * names.length);
 
@@ -161,23 +160,6 @@ function spinWheel() {
             const winnerName = names[winnerIndex];
             winnerDiv.textContent = `🎉 Ganador: ${winnerName}`;
 
-
-
-            // Si está activado "no repetir", eliminamos al ganador
-            if (noRepeatSwitch.checked) {
-                setTimeout(() => {
-                    names.splice(winnerIndex, 1);
-
-                    if (names.length === 0) {
-                        winnerDiv.textContent = '🎊 ¡Todos han ganado!';
-                        currentRotation = 0;
-                        drawWheel();
-                    } else {
-                        currentRotation = 0;
-                        drawWheel();
-                    }
-                }, 2000);
-            }
 
             // Debug detallado
             console.log('===== DEBUG GANADOR =====');
@@ -277,4 +259,6 @@ window.addEventListener('DOMContentLoaded', () => {
     addNames();
 });
 
+// Obtiene el elemento con el ID "currentYear" y le inserta el año actual
+document.getElementById('currentYear').textContent = new Date().getFullYear();
 drawWheel();

@@ -40,26 +40,27 @@
     <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5K6K7P8R" height="0" width="0"
             style="display:none;visibility:hidden"></iframe></noscript>
     <!-- End Google Tag Manager (noscript) -->
-    <div class="container">
-        <div class="left-column">
-            <h1> Ruleta de Nombres</h1>
-            <div id="winner" class="winner"></div>
-            <div class="wheel-container">
-                <canvas id="wheel" width="400" height="400"></canvas>
-                <div class="pointer"></div>
+    <section class="main-section">
+        <div class="container">
+            <div class="left-column">
+                <h1> Ruleta de Nombres</h1>
+                <div id="winner" class="winner"></div>
+                <div class="wheel-container">
+                    <canvas id="wheel" width="400" height="400"></canvas>
+                    <div class="pointer"></div>
+                </div>
+
+
+
+                <div class="controls">
+                    <button id="spinBtn" class="btn btn-spin">Girar Ruleta</button>
+                </div>
             </div>
 
-
-
-            <div class="controls">
-                <button id="spinBtn" class="btn btn-spin">Girar Ruleta</button>
-            </div>
-        </div>
-
-        <div class="right-column">
-            <div class="input-section">
-                <p>Escribe los nombres (un nombre único por línea)</p>
-                <textarea id="nameInput" rows="12">
+            <div class="right-column">
+                <div class="input-section">
+                    <p>Escribe los nombres (un nombre único por línea)</p>
+                    <textarea id="nameInput" rows="12">
 Alaïa
 Pedrito
 Carlita
@@ -67,25 +68,41 @@ Sol
 Pepe
 Luna
                 </textarea>
-                <div class="button-group">
-                    <button id="addBtn" class="btn btn-add">Agregar Nombres</button>
-                    <button id="clearBtn" class="btn btn-clear">Eliminar Todos</button>
+                    <div class="button-group">
+                        <button id="addBtn" class="btn btn-add">Agregar Nombres</button>
+                        <button id="clearBtn" class="btn btn-clear">Eliminar Todos</button>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-    <div class="seo-content" style="padding: 20px; max-width: 800px; margin: 40px auto; text-align: left;">
-        <h2>Miruleta.com: La Ruleta Al Azar Definitiva para tus Sorteos Online</h2>
-        <p>¿Buscas una herramienta sencilla y justa para tomar decisiones? Miruleta.com es la solución ideal. Nuestra
-            **ruleta al azar online** te permite introducir una lista de nombres, ideas o decisiones y elegir un ganador
-            de forma rápida y 100% imparcial.</p>
+    </section>
 
-        <p>Somos la mejor opción para realizar cualquier tipo de **sorteo online** o para asignar tareas. Simplemente
-            ingresa tu lista de participantes y gira la ruleta.</p>
 
-        <p>Utiliza miruleta.com para **elegir nombres**, organizar juegos, sortear premios o simplemente tomar una
-            **decisión aleatoria** sin complicaciones. ¡Tu próximo sorteo justo comienza aquí!</p>
-    </div>
+
+
+    <footer>
+        <div class="seo-content">
+            <div class="seo-text">
+                <h2>miruleta.com: La Ruleta Al Azar Definitiva para tus Sorteos Online</h2>
+                <p>¿Buscas una herramienta sencilla y justa para tomar decisiones? Miruleta.com es la solución ideal.
+                    Nuestra
+                    **ruleta al azar online** te permite introducir una lista de nombres, ideas o decisiones y elegir un
+                    ganador
+                    de forma rápida y 100% imparcial.</p>
+
+                <p>Somos la mejor opción para realizar cualquier tipo de **sorteo online** o para asignar tareas.
+                    Simplemente
+                    ingresa tu lista de participantes y gira la ruleta.</p>
+
+                <p>Utiliza miruleta.com para **elegir nombres**, organizar juegos, sortear premios o simplemente tomar
+                    una
+                    **decisión aleatoria** sin complicaciones. ¡Tu próximo sorteo justo comienza aquí!</p>
+            </div>
+
+        </div>
+        <p class="copyr">&copy; <span id="currentYear"></span> miruleta.com. Todos los derechos reservados.</p>
+    </footer>
+
     <script type="application/ld+json">
 {
   "@context": "https://schema.org",
