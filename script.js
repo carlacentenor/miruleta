@@ -185,6 +185,8 @@ function spinWheel() {
             console.log('Nombres restantes:', names.length);
             console.log('========================');
         }
+
+        window.dataLayer.push({'event': 'girar_ruleta'});
     }
 
     requestAnimationFrame(animate);
