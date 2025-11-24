@@ -11,8 +11,9 @@ body {
     min-height: 100vh;
     padding: 2rem;
     display: flex;
-    justify-content: center;
-    align-items: center;
+    justify-content: end;
+    flex-direction: column;
+
 }
 
 .container {
@@ -25,6 +26,14 @@ body {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 3rem;
+
+}
+
+
+.main-section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .left-column {
@@ -38,6 +47,29 @@ body {
     display: flex;
     flex-direction: column;
     gap: 1.5rem;
+}
+
+footer {
+    display: flex;
+    flex-direction: column;
+
+}
+
+.seo-content {
+    color: #ffffff8a;
+    font-size: 8px;
+    padding-top: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.copyr {
+    color: #ffffff;
+    font-size: 14px;
+    padding-top: 1rem;
+    text-align: center;
 }
 
 h1 {
