@@ -891,9 +891,7 @@ body {
 
 
 .seo-content {
-  color: #ffffff8a;
-  font-size: 8px;
-  padding-top: 1rem;
+
   display: flex;
   align-items: center;
   justify-content: center;
@@ -905,4 +903,16 @@ body {
   align-items: center;
   justify-content: center;
   text-align: center;
+}
+.footer-nav{
+   text-align: center;
+}
+
+footer{
+  z-index: 99;
+   color: #ffffff8a;
+  font-size: 10px;
+  padding: 1rem;
+  text-decoration: none;
+  padding: 1rem;
 }

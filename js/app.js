@@ -66,7 +66,35 @@ const toastEl      = document.getElementById('toast');
     container.appendChild(b);
   }
 })();
- 
+
+/* ══════════════════════════════════════════════
+   TEXT WRAP HELPER
+   Parte un texto en líneas según maxChars por línea
+══════════════════════════════════════════════ */
+function wrapText(text, maxChars) {
+  const words = text.split(' ');
+  const lines = [];
+  let current = '';
+  words.forEach(word => {
+    const candidate = current ? current + ' ' + word : word;
+    if (candidate.length <= maxChars) {
+      current = candidate;
+    } else {
+      if (current) lines.push(current);
+      // Si la palabra sola es más larga que maxChars, la parte con guión
+      if (word.length > maxChars) {
+        lines.push(word.slice(0, maxChars - 1) + '-');
+        current = word.slice(maxChars - 1);
+      } else {
+        current = word;
+      }
+    }
+  });
+  if (current) lines.push(current);
+  // Máximo 2 líneas para no desbordar el segmento
+  return lines.slice(0, 2);
+}
+
 /* ══════════════════════════════════════════════
    WHEEL SVG BUILD
 ══════════════════════════════════════════════ */
@@ -76,17 +104,14 @@ function buildWheel() {
   const palette = THEMES[currentTheme];
   const txtColor = THEME_TEXT[currentTheme];
  
-  // SVG size
   svgEl.setAttribute('viewBox',`${-WHEEL_SIZE/2} ${-WHEEL_SIZE/2} ${WHEEL_SIZE} ${WHEEL_SIZE}`);
   svgEl.style.width  = WHEEL_SIZE + 'px';
   svgEl.style.height = WHEEL_SIZE + 'px';
  
-  // Rim
   wheelRim.style.width  = (WHEEL_SIZE + 24) + 'px';
   wheelRim.style.height = (WHEEL_SIZE + 24) + 'px';
  
   if(n === 0){
-    // Empty state
     const circle = makeSVG('circle',{cx:0,cy:0,r:R,fill:'rgba(255,255,255,0.3)',stroke:'rgba(255,255,255,0.5)','stroke-width':3});
     svgEl.appendChild(circle);
     const txt = makeSVG('text',{'x':0,'y':0,'text-anchor':'middle','dominant-baseline':'middle',
@@ -101,54 +126,70 @@ function buildWheel() {
     svgEl.appendChild(circle);
     const txt = makeSVG('text',{x:0,y:0,'text-anchor':'middle','dominant-baseline':'middle',
       fill:txtColor,'font-family':'Fredoka One, cursive','font-size':22,'font-weight':'bold'});
-    txt.textContent = truncate(participants[0].name, 14);
+    txt.textContent = participants[0].name;
     svgEl.appendChild(txt);
     addHub(txtColor);
     return;
   }
  
   const arc = 360 / n;
-  participants.forEach((p,i) => {
-    const color      = palette[i % palette.length];
-    const startDeg   = i * arc - 90;
-    const endDeg     = startDeg + arc;
-    const start      = polar(R, startDeg);
-    const end        = polar(R, endDeg);
-    const largeArc   = arc > 180 ? 1 : 0;
+
+  // maxChars y fontSize según cantidad de segmentos
+  const fontSize = n > 20 ? 9 : n > 12 ? 11 : 13;
+  const maxChars = n > 20 ? 8 : n > 12 ? 10 : 13;
+  // Espacio entre líneas proporcional al fontSize
+  const lineHeight = fontSize * 1.25;
+
+  participants.forEach((p, i) => {
+    const color    = palette[i % palette.length];
+    const startDeg = i * arc - 90;
+    const endDeg   = startDeg + arc;
+    const start    = polar(R, startDeg);
+    const end      = polar(R, endDeg);
+    const largeArc = arc > 180 ? 1 : 0;
  
-    // Slice
+    // Segmento
     const path = makeSVG('path',{
       d:`M 0 0 L ${start.x} ${start.y} A ${R} ${R} 0 ${largeArc} 1 ${end.x} ${end.y} Z`,
-      fill: color,
+      fill: p.eliminated ? 'rgba(150,150,150,0.4)' : color,
       stroke:'rgba(255,255,255,0.5)',
       'stroke-width':1.5
     });
-    if(p.eliminated){
-      path.setAttribute('fill','rgba(150,150,150,0.4)');
-    }
     svgEl.appendChild(path);
  
-    // Text — vertical, reading from center outward
+    // Posición central del texto en el segmento
     const midDeg = startDeg + arc / 2;
     const tp     = polar(R_TEXT, midDeg);
-    const fontSize = n > 20 ? 9 : n > 12 ? 11 : 13;
-    const maxChars = n > 20 ? 7 : n > 12 ? 9 : 11;
- 
-    const text   = makeSVG('text',{
-      x: tp.x, y: tp.y,
-      'text-anchor':'middle',
-      'dominant-baseline':'middle',
-      // rotate so text stands upright along the radius (vertical in segment)
-      transform:`rotate(${midDeg},${tp.x},${tp.y})`,
-      fill: p.eliminated ? 'rgba(255,255,255,0.3)' : txtColor,
-      'font-family':'Fredoka One, cursive',
-      'font-size': fontSize,
+    const textFill = p.eliminated ? 'rgba(255,255,255,0.3)' : txtColor;
+
+    // Calcular líneas
+    const lines = wrapText(p.name, maxChars);
+    const totalHeight = lines.length * lineHeight;
+    const startY = -(totalHeight / 2) + lineHeight / 2;
+
+    // Grupo rotado para que el texto siga el radio
+    const g = makeSVG('g', {
+      transform: `translate(${tp.x},${tp.y}) rotate(${midDeg})`
     });
-    text.textContent = truncate(p.name, maxChars);
-    svgEl.appendChild(text);
+
+    lines.forEach((line, li) => {
+      const tspan = makeSVG('text', {
+        x: 0,
+        y: startY + li * lineHeight,
+        'text-anchor': 'middle',
+        'dominant-baseline': 'middle',
+        fill: textFill,
+        'font-family': 'Fredoka One, cursive',
+        'font-size': fontSize,
+      });
+      tspan.textContent = line;
+      g.appendChild(tspan);
+    });
+
+    svgEl.appendChild(g);
   });
  
-  // Decorative inner rings
+  // Anillos decorativos interiores
   [R_HUB+20, R_HUB+10].forEach((r,i) => {
     const c = makeSVG('circle',{cx:0,cy:0,r,fill:'none',stroke:'rgba(255,255,255,0.4)','stroke-width':i===0?2:1});
     svgEl.appendChild(c);
@@ -175,7 +216,6 @@ function polar(r, deg){
   const rad = deg * Math.PI / 180;
   return {x: r * Math.cos(rad), y: r * Math.sin(rad)};
 }
-function truncate(str, max){ return str.length > max ? str.slice(0,max-1)+'…' : str; }
  
 /* ══════════════════════════════════════════════
    PARTICIPANTS
@@ -194,7 +234,6 @@ function addParticipantsFromTextarea() {
     showToast('✏️ Escribe al menos un nombre'); return;
   }
  
-  // Replace participants entirely with the textarea content
   participants = names
     .filter(name => name.length <= 40)
     .map(name => ({ name, eliminated: false }));
@@ -233,7 +272,6 @@ function spin(){
   btnSpin.disabled = true;
   winnerDisplay.innerHTML = `<div class="winner-placeholder">🎰 Girando…</div>`;
  
-  // Pick winner among non-eliminated
   const winner = active[Math.floor(Math.random() * active.length)];
   const winnerIdx = participants.indexOf(winner);
   const n = participants.length;
@@ -242,7 +280,6 @@ function spin(){
   const extraSpins = 5 + Math.floor(Math.random() * 5);
   const duration   = 4500 + Math.random() * 1500;
  
-  // Target: midpoint of winner segment lands at top (needle)
   const targetLocal = -(winnerIdx * arc + arc / 2);
   const totalRot = rotation + targetLocal - (rotation % 360) + extraSpins * 360;
  
@@ -260,20 +297,13 @@ function spin(){
 }
  
 function showWinner(winner, idx){
-  // Confetti
   spawnConfetti();
- 
-  // Display
   winnerDisplay.innerHTML = `
     <div class="winner-emoji">🎉</div>
     <div class="winner-name pop">${escapeHTML(winner.name)}</div>
   `;
- 
-  // History
   history.unshift(winner.name);
   renderHistory();
- 
-  // Eliminate if switch is OFF
   if(!repeatSwitch.checked){
     participants[idx].eliminated = true;
     syncTextarea();
@@ -307,7 +337,6 @@ function spawnConfetti(){
   const rect = wheelOuter.getBoundingClientRect();
   const cx = rect.left + rect.width/2;
   const cy = rect.top  + rect.height/2;
- 
   for(let i=0;i<14;i++){
     const el = document.createElement('div');
     el.className = 'confetti-burst';
@@ -351,15 +380,12 @@ function showToast(msg){
 ══════════════════════════════════════════════ */
 btnAdd.addEventListener('click', addParticipantsFromTextarea);
 namesTextarea.addEventListener('keydown', e => {
-  // Ctrl+Enter or Cmd+Enter to load
   if((e.ctrlKey || e.metaKey) && e.key === 'Enter'){
     e.preventDefault();
     addParticipantsFromTextarea();
   }
 });
- 
 btnSpin.addEventListener('click', spin);
- 
 btnClear.addEventListener('click', () => {
   if(participants.length===0) return;
   participants = [];
@@ -367,17 +393,12 @@ btnClear.addEventListener('click', () => {
   renderList(); buildWheel();
   showToast('🗑 Lista limpiada');
 });
- 
 btnResetHist.addEventListener('click', () => {
   history = [];
   renderHistory();
   showToast('🗑 Historial borrado');
 });
- 
 themeSelect.addEventListener('change', e => applyTheme(e.target.value));
- 
-
- 
 repeatSwitch.addEventListener('change', () => {
   if(repeatSwitch.checked){
     participants.forEach(p => p.eliminated = false);
@@ -388,12 +409,15 @@ repeatSwitch.addEventListener('change', () => {
     showToast('❌ El ganador se eliminará de la ruleta');
   }
 });
- 
-/* ══════════════════════════════════════════════
-   INIT — participantes de ejemplo
-══════════════════════════════════════════════ */
-['Ana','Carlos','Lucía','Miguel','Sofía','Diego','Valentina','Sebastián'].forEach(n => {
-  participants.push({name:n, eliminated:false});
+
+/* INIT — participantes de ejemplo */
+const defaultData = JSON.parse(
+  document.getElementById('wheel-svg').closest('[data-defaults]')?.getAttribute('data-defaults')
+  || document.body.getAttribute('data-defaults')
+  || '["Ana","Carlos","Lucía","Miguel","Sofía","Diego","Valentina","Sebastián"]'
+);
+defaultData.forEach(n => {
+  participants.push({ name: n, eliminated: false });
 });
 syncTextarea();
 renderList();

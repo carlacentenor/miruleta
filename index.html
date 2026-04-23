@@ -48,21 +48,21 @@
     <!-- End Google Tag Manager -->
 </head>
 
-<body>
+<body data-defaults='["Ana","Carlos","Lucía","Miguel","Sofía","Diego","Valentina","Sebastián"]'>
 <!-- Google Tag Manager (noscript) -->
     <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5K6K7P8R" height="0" width="0"
             style="display:none;visibility:hidden"></iframe></noscript>
     <!-- End Google Tag Manager (noscript) -->
-    <!-- Fondo -->
+    
     <div class="bg-wrap"></div>
     <div class="bubbles" id="bubbles"></div>
 
-    <!-- TOAST -->
+   
     <div class="toast" id="toast"></div>
 
     <div class="app">
 
-        <!-- ── HEADER ─────────────────────────────── -->
+    
         <header class="header">
             <h1><span>🎡</span> Mi Ruleta de sorteos</h1>
             <div class="toolbar">
@@ -79,15 +79,15 @@
             </div>
         </header>
 
-        <!-- ── MAIN GRID ──────────────────────────── -->
+
         <div class="main-grid">
 
-            <!-- ░░ COLUMNA IZQUIERDA ░░ -->
+         
             <div class="left-col">
 
-                <!-- Participantes -->
+                
                 <div class="card participants-card">
-                    <!-- Ganador -->
+                   
                     <div class="winner-inline">
                         <div class="winner-label">Ganador</div>
                         <div class="winner-display" id="winner-display">
@@ -120,7 +120,7 @@
                     </div>
                 </div>
 
-                <!-- Historial -->
+              
                 <div class="history-card">
                     <div class="history-title">
                         <span>📋 Historial</span>
@@ -131,9 +131,8 @@
                     </ul>
                 </div>
 
-            </div><!-- /left-col -->
+            </div>
 
-            <!-- ░░ COLUMNA DERECHA — Ruleta + Ganador ░░ -->
             <div class="right-col">
 
 
@@ -155,36 +154,51 @@
 
 
 
-            </div><!-- /right-col -->
-
-        </div><!-- /main-grid -->
-    </div><!-- /app -->
-
-    <footer>
-        <div class="seo-content">
-            <div class="seo-text">
-                <h2>miruleta.com: La Ruleta Al Azar Definitiva para tus Sorteos Online</h2>
-                <p>¿Buscas una herramienta sencilla y justa para tomar decisiones? Miruleta.com es la solución ideal.
-                    Nuestra
-                    **ruleta al azar online** te permite introducir una lista de nombres, ideas o decisiones y elegir un
-                    ganador
-                    de forma rápida y 100% imparcial.</p>
-
-                <p>Somos la mejor opción para realizar cualquier tipo de **sorteo online** o para asignar tareas.
-                    Simplemente
-                    ingresa tu lista de participantes y gira la ruleta.</p>
-
-                <p>Utiliza miruleta.com para **elegir nombres**, organizar juegos, sortear premios o simplemente tomar
-                    una
-                    **decisión aleatoria** sin complicaciones. ¡Tu próximo sorteo justo comienza aquí!</p>
             </div>
 
         </div>
-        <p class="copyr">&copy; <span id="currentYear"></span> miruleta.com. Todos los derechos reservados.</p>
-    </footer>
+    </div>
 
-    
-   <!-- Schema.org: WebSite -->
+     <footer>
+    <div class="seo-content">
+      <div class="seo-text">
+
+        <h2>Ruleta para asignar tareas al azar</h2>
+        <p>¿Necesitas <strong>asignar tareas al azar</strong> de forma justa y sin discusiones? Escribe los nombres de
+          tus participantes, gira la ruleta y deja que el azar decida quién hace cada tarea. Rápido, imparcial y sin
+          registro.</p>
+
+        <h3>¿Para qué se usa la ruleta de tareas?</h3>
+        <p>Es perfecta para <strong>profesores</strong> que quieren asignar exposiciones o ejercicios en clase,
+          <strong>equipos de trabajo</strong> que necesitan repartir responsabilidades de forma equitativa, o cualquier
+          grupo que quiera hacer un <strong>sorteo para asignar tareas</strong> sin favoritismos.</p>
+
+        <h3>¿Cómo funciona?</h3>
+        <p>Escribe un nombre por línea en el panel izquierdo, pulsa "Agregar a la ruleta" y haz clic en
+          <strong>¡GIRAR!</strong>. El ganador aparece al instante. Activa el modo <em>sin repetición</em> para que cada
+          persona salga una sola vez y así puedas <strong>asignar tareas al azar online</strong> de forma ordenada hasta
+          agotar la lista.</p>
+
+        <h3>Preguntas frecuentes</h3>
+        <p><strong>¿Es gratis?</strong> Sí, completamente gratis y sin necesidad de crear una cuenta.</p>
+        <p><strong>¿Cuántos participantes puedo añadir?</strong> No hay límite. Funciona igual con 3 personas que con
+          100.</p>
+        <p><strong>¿Los resultados son realmente aleatorios?</strong> Sí. El giro usa el generador de números aleatorios
+          nativo del navegador, sin trampas.</p>
+
+      </div>
+    </div>
+
+   
+    <nav class="footer-nav" aria-label="Otras herramientas">
+      <a href="/">Ruleta de sorteos</a>
+      <a href="/ruleta-para-asignar-tareas/">Asignar tareas</a>
+    </nav>
+
+    <p class="copyr">&copy; <span id="currentYear"></span> miruleta.com. Todos los derechos reservados.</p>
+  </footer>
+
+  
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -194,24 +208,13 @@
   }
   </script>
 
-  <!-- Schema.org: Organization -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "Organization",
-    "name": "Miruleta.com",
-    "url": "https://www.miruleta.com/",
-    "logo": "https://www.miruleta.com/apple-touch-icon.png"
-  }
-  </script>
 
-  <!-- Schema.org: WebApplication (describe la herramienta a Google) -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
     "@type": "WebApplication",
-    "name": "Ruleta para sorteos y asignar tareas al azar",
-    "url": "https://www.miruleta.com/",
+    "name": "Ruleta para asignar tareas al azar",
+    "url": "https://www.miruleta.com/ruleta-para-asignar-tareas/",
     "applicationCategory": "UtilitiesApplication",
     "operatingSystem": "Web",
     "offers": {
@@ -219,10 +222,44 @@
       "price": "0",
       "priceCurrency": "EUR"
     },
-    "description": "Herramienta online gratuita para asignar tareas al azar, sortear nombres y tomar decisiones de forma imparcial. Sin registro.",
+    "description": "Herramienta online gratuita para asignar tareas al azar entre participantes. Ideal para profesores y equipos de trabajo. Sin registro.",
     "inLanguage": "es"
   }
   </script>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "¿Es gratis la ruleta para asignar tareas?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Sí, completamente gratis y sin necesidad de crear una cuenta."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "¿Cuántos participantes puedo añadir?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "No hay límite. Funciona igual con 3 personas que con 100."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "¿Los resultados son realmente aleatorios?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Sí. El giro usa el generador de números aleatorios nativo del navegador, sin trampas."
+        }
+      }
+    ]
+  }
+  </script>
+
 
     <script src="js/app.js"></script>
 </body>

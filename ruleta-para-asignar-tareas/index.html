@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <!-- Básicos -->
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- Title -->
+  <title>Ruleta para asignar tareas al azar — miruleta.com</title>
+
+  <!-- Meta description -->
+  <meta name="description" content="Asigna tareas al azar de forma justa en segundos. Escribe los nombres, gira la ruleta y deja que el azar decida. Ideal para profesores y equipos. Gratis, sin registro." />
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Ruleta para asignar tareas al azar — miruleta.com" />
+  <meta property="og:description" content="Asigna tareas al azar de forma justa en segundos. Escribe los nombres, gira la ruleta y deja que el azar decida. Ideal para profesores y equipos. Gratis, sin registro." />
+  <meta property="og:url" content="https://www.miruleta.com/ruleta-para-asignar-tareas/" />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="https://www.miruleta.com/apple-touch-icon.png" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Ruleta para asignar tareas al azar — miruleta.com" />
+  <meta name="twitter:description" content="Asigna tareas al azar de forma justa en segundos. Escribe los nombres, gira la ruleta y deja que el azar decida. Ideal para profesores y equipos. Gratis, sin registro." />
+
+  <!-- Canonical -->
+  <link rel="canonical" href="https://www.miruleta.com/ruleta-para-asignar-tareas/" />
+
+  <!-- Favicons -->
+  <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+  <link rel="icon" type="image/x-icon" href="/favicon-xl.ico" />
+
+  <!-- Fuentes -->
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet" />
+
+  <!-- Estilos — ruta relativa al root -->
+  <link rel="stylesheet" href="/css/style2.css" />
+
+  <!-- Google Tag Manager -->
+  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-5K6K7P8R');</script>
+  <!-- End Google Tag Manager -->
+</head>
+
+<body data-defaults='["Leer el mail","Preparar informe","Reunión de equipo","Actualizar docs","Revisar tareas","Llamar al cliente","Ordenar archivos","Presentar resultados"]'>
+  <!-- Google Tag Manager (noscript) -->
+  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5K6K7P8R" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+  <!-- End Google Tag Manager (noscript) -->
+
+  <!-- Fondo -->
+  <div class="bg-wrap"></div>
+  <div class="bubbles" id="bubbles"></div>
+
+  <!-- TOAST -->
+  <div class="toast" id="toast"></div>
+
+  <div class="app">
+
+    <!-- ── HEADER ─────────────────────────────── -->
+    <header class="header">
+      <h1><span>🎡</span> Ruleta para asignar tareas</h1>
+      <div class="toolbar">
+        <input class="title-input" id="roulette-title" type="text" value="Asignar tareas"
+          placeholder="Nombre del sorteo…" maxlength="40" />
+        <select class="theme-select" id="theme-select" title="Elegir temática">
+          <option value="fiesta">🎉 Fiesta</option>
+          <option value="pastel">🌸 Colores Pastel</option>
+          <option value="oscuro">🌙 Colores Oscuros</option>
+          <option value="navidad">🎄 Navideño</option>
+          <option value="cielo">☁️ Cielo Azul</option>
+          <option value="arcoiris">🌈 Arco Iris</option>
+        </select>
+      </div>
+    </header>
+
+    <!-- ── MAIN GRID ──────────────────────────── -->
+    <div class="main-grid">
+
+      <!-- ░░ COLUMNA IZQUIERDA ░░ -->
+      <div class="left-col">
+
+        <!-- Participantes -->
+        <div class="card participants-card">
+          <div class="winner-inline">
+            <div class="winner-label">Tarea Ganadora</div>
+            <div class="winner-display" id="winner-display">
+              <div class="winner-placeholder">Aquí aparecerá la tarea ganadora</div>
+            </div>
+          </div>
+          <div class="card-title"><span class="icon"></span> Participantes</div>
+
+          <div class="add-row">
+            <textarea class="names-textarea" id="names-textarea"
+              placeholder="Escribe los nombres aquí…&#10;Una tarea por línea:&#10;&#10;Leer reporte&#10;Escribir email&#10;Enviar mensaje"></textarea>
+            <div class="textarea-hint">📋 Una actividad  por línea · Soporta pegar listas</div>
+            <button class="btn-add" id="btn-add"> Agregar a la ruleta</button>
+          </div>
+
+          <div class="participants-footer">
+            <span class="count-badge" id="count-badge">0 participantes</span>
+            <button class="btn-clear" id="btn-clear">🗑 Limpiar</button>
+          </div>
+
+          <div class="switch-row">
+            <div class="switch-label">
+              Repetir ganadores
+              <small>Si está OFF, el ganador se elimina</small>
+            </div>
+            <label class="toggle-switch">
+              <input type="checkbox" id="repeat-switch" checked />
+              <span class="toggle-track"></span>
+            </label>
+          </div>
+        </div>
+
+        <!-- Historial -->
+        <div class="history-card">
+          <div class="history-title">
+            <span>📋 Historial</span>
+            <button class="btn-reset-history" id="btn-reset-history">🗑 Borrar</button>
+          </div>
+          <ul class="history-list" id="history-list">
+            <li class="no-history">Aún no hay sorteos</li>
+          </ul>
+        </div>
+
+      </div><!-- /left-col -->
+
+      <!-- ░░ COLUMNA DERECHA — Ruleta ░░ -->
+      <div class="right-col">
+        <div class="wheel-zone">
+          <div class="wheel-outer" id="wheel-outer">
+            <div class="wheel-rim" id="wheel-rim"></div>
+            <svg class="wheel-needle" width="36" height="54" viewBox="0 0 36 54" fill="none">
+              <polygon points="18,54 0,10 36,10" fill="#fff" opacity="0.95" />
+              <polygon points="18,50 4,12 32,12" fill="rgba(0,0,0,0.15)" />
+              <circle cx="18" cy="10" r="9" fill="#fff" />
+              <circle cx="18" cy="10" r="6" fill="rgba(0,0,0,0.15)" />
+              <circle cx="18" cy="10" r="3" fill="#fff" />
+            </svg>
+            <svg id="wheel-svg" xmlns="http://www.w3.org/2000/svg"></svg>
+          </div>
+        </div>
+        <button class="btn-spin" id="btn-spin">¡GIRAR!</button>
+      </div><!-- /right-col -->
+
+    </div><!-- /main-grid -->
+  </div><!-- /app -->
+
+  <footer>
+    <div class="seo-content">
+      <div class="seo-text">
+
+        <h2>Ruleta para asignar tareas al azar</h2>
+        <p>¿Necesitas <strong>asignar tareas al azar</strong> de forma justa y sin discusiones? Escribe los nombres de
+          tus participantes, gira la ruleta y deja que el azar decida quién hace cada tarea. Rápido, imparcial y sin
+          registro.</p>
+
+        <h3>¿Para qué se usa la ruleta de tareas?</h3>
+        <p>Es perfecta para <strong>profesores</strong> que quieren asignar exposiciones o ejercicios en clase,
+          <strong>equipos de trabajo</strong> que necesitan repartir responsabilidades de forma equitativa, o cualquier
+          grupo que quiera hacer un <strong>sorteo para asignar tareas</strong> sin favoritismos.</p>
+
+        <h3>¿Cómo funciona?</h3>
+        <p>Escribe un nombre por línea en el panel izquierdo, pulsa "Agregar a la ruleta" y haz clic en
+          <strong>¡GIRAR!</strong>. El ganador aparece al instante. Activa el modo <em>sin repetición</em> para que cada
+          persona salga una sola vez y así puedas <strong>asignar tareas al azar online</strong> de forma ordenada hasta
+          agotar la lista.</p>
+
+        <h3>Preguntas frecuentes</h3>
+        <p><strong>¿Es gratis?</strong> Sí, completamente gratis y sin necesidad de crear una cuenta.</p>
+        <p><strong>¿Cuántos participantes puedo añadir?</strong> No hay límite. Funciona igual con 3 personas que con
+          100.</p>
+        <p><strong>¿Los resultados son realmente aleatorios?</strong> Sí. El giro usa el generador de números aleatorios
+          nativo del navegador, sin trampas.</p>
+
+      </div>
+    </div>
+
+    <!-- Navegación entre páginas -->
+    <nav class="footer-nav" aria-label="Otras herramientas">
+      <a href="/">Ruleta de sorteos</a>
+      <a href="/ruleta-para-asignar-tareas/">Asignar tareas</a>
+    </nav>
+
+    <p class="copyr">&copy; <span id="currentYear"></span> miruleta.com. Todos los derechos reservados.</p>
+  </footer>
+
+  <!-- Schema.org: WebSite -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "miruleta.com",
+    "url": "https://www.miruleta.com/"
+  }
+  </script>
+
+  <!-- Schema.org: WebApplication -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Ruleta para asignar tareas al azar",
+    "url": "https://www.miruleta.com/ruleta-para-asignar-tareas/",
+    "applicationCategory": "UtilitiesApplication",
+    "operatingSystem": "Web",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "EUR"
+    },
+    "description": "Herramienta online gratuita para asignar tareas al azar entre participantes. Ideal para profesores y equipos de trabajo. Sin registro.",
+    "inLanguage": "es"
+  }
+  </script>
+
+  <!-- Schema.org: FAQPage -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "¿Es gratis la ruleta para asignar tareas?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Sí, completamente gratis y sin necesidad de crear una cuenta."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "¿Cuántos participantes puedo añadir?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "No hay límite. Funciona igual con 3 personas que con 100."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "¿Los resultados son realmente aleatorios?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Sí. El giro usa el generador de números aleatorios nativo del navegador, sin trampas."
+        }
+      }
+    ]
+  }
+  </script>
+
+ 
+  <script src="/js/app.js"></script>
+</body>
+
+</html>
