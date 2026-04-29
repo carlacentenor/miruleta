@@ -269,6 +269,12 @@ function spin(){
   }
   if(isSpinning) return;
   isSpinning = true;
+  gtag('event', 'girar_ruleta', {
+    event_category: 'interaccion',
+    event_label: 'boton_girar',
+    
+  });
+
   btnSpin.disabled = true;
   winnerDisplay.innerHTML = `<div class="winner-placeholder">🎰 Girando…</div>`;
  
