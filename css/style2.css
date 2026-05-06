@@ -61,7 +61,7 @@
   --btn-spin-bg: linear-gradient(135deg, #e94560, #c0392b);
   --btn-spin-shadow: rgba(233, 69, 96, 0.5);
   --winner-bg: linear-gradient(135deg, #e94560, #f5a623);
-  --winner-text: #fff;
+  --winner-text: #2d3436;
   --input-bg: rgba(255, 255, 255, 0.07);
   --chip-bg: rgba(233, 69, 96, 0.15);
   --chip-border: #e94560;
@@ -84,7 +84,7 @@
   --btn-spin-bg: linear-gradient(135deg, #c1121f, #e63946);
   --btn-spin-shadow: rgba(193, 18, 31, 0.45);
   --winner-bg: linear-gradient(135deg, #c1121f, #fcbf49);
-  --winner-text: #fff;
+  --winner-text: #2d3436;
   --chip-bg: #fff5f5;
   --chip-border: #c1121f;
   --chip-text: #c1121f;
