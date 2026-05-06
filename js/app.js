@@ -2,7 +2,9 @@
    TEMAS — Paletas de colores para los segmentos
 ══════════════════════════════════════════════ */
 const THEMES = {
+
   fiesta: ['#ff6b6b', '#ff9f43', '#feca57', '#1dd1a1', '#48dbfb', '#54a0ff', '#a29bfe', '#fd79a8', '#ff6b6b', '#26de81'],
+  madre: ['#ff4d6d','#ff758f', '#c9184a', '#d6336c', '#a4133c','#ff8fa3', '#800f2f', '#590d22', '#db3a57',  '#ff5c8a'],
   pastel: ['#ffd6e7', '#c8f7c5', '#a8d8ea', '#f9d5e5', '#eeac99', '#d4e6b5', '#b8c8e8', '#f7d9c4', '#c9e4ca', '#e8d5f0'],
   oscuro: ['#2c2c54', '#474787', '#e94560', '#c0392b', '#1a1a2e', '#0f3460', '#533483', '#e94560', '#2c2c54', '#16213e'],
   navidad: ['#c1121f', '#1a472a', '#e63946', '#2d6a4f', '#ff595e', '#1b4332', '#d62828', '#40916c', '#c1121f', '#2d6a4f'],
@@ -11,7 +13,7 @@ const THEMES = {
 };
 
 const THEME_TEXT = {
-  fiesta: '#fff', pastel: '#2d3436', oscuro: '#e0e0f0', navidad: '#fff', cielo: '#fff', arcoiris: '#fff'
+  fiesta: '#fff', madre: '#ffffff', pastel: '#2d3436', oscuro: '#e0e0f0', navidad: '#fff', cielo: '#fff', arcoiris: '#fff'
 };
 
 /* ══════════════════════════════════════════════
@@ -51,21 +53,37 @@ const toastEl = document.getElementById('toast');
 /* ══════════════════════════════════════════════
    BUBBLES BACKGROUND
 ══════════════════════════════════════════════ */
-(function createBubbles() {
+
+function createBubbles() {
   const container = document.getElementById('bubbles');
+
+  if (!container) return;
+
+  container.innerHTML = '';
+
   for (let i = 0; i < 18; i++) {
     const b = document.createElement('div');
-    b.className = 'bubble';
+
+    b.className = currentTheme === 'madre'
+      ? 'bubble heart-bubble'
+      : 'bubble';
+
     const size = 20 + Math.random() * 80;
+
     b.style.cssText = `
-      width:${size}px; height:${size}px;
+      width:${size}px;
+      height:${size}px;
+      font-size:${size}px;
       left:${Math.random() * 100}%;
       animation-duration:${6 + Math.random() * 12}s;
       animation-delay:${Math.random() * 10}s;
     `;
+
     container.appendChild(b);
   }
-})();
+}
+
+
 
 /* ══════════════════════════════════════════════
    TEXT WRAP HELPER
@@ -275,16 +293,16 @@ function spin() {
   isSpinning = true;
   window.dataLayer = window.dataLayer || [];
 
- try {
-  window.dataLayer = window.dataLayer || [];
-  window.dataLayer.push({
-    event: 'girar_ruleta',
-    page: window.location.pathname,
-    participantes: active.length
-  });
-} catch (error) {
-  console.log('Error enviando evento:', error);
-}
+  try {
+    window.dataLayer = window.dataLayer || [];
+    window.dataLayer.push({
+      event: 'girar_ruleta',
+      page: window.location.pathname,
+      participantes: active.length
+    });
+  } catch (error) {
+    console.log('Error enviando evento:', error);
+  }
 
   btnSpin.disabled = true;
   winnerDisplay.innerHTML = `<div class="winner-placeholder">🎰 Girando…</div>`;
@@ -377,7 +395,13 @@ function spawnConfetti() {
 ══════════════════════════════════════════════ */
 function applyTheme(theme) {
   currentTheme = theme;
-  document.body.setAttribute('data-theme', theme === 'fiesta' ? '' : theme);
+
+  document.body.setAttribute(
+    'data-theme',
+    theme === 'fiesta' ? '' : theme
+  );
+
+  createBubbles();
   buildWheel();
 }
 
@@ -439,4 +463,5 @@ defaultData.forEach(n => {
 syncTextarea();
 renderList();
 renderHistory();
+createBubbles();
 buildWheel();

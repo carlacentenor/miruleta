@@ -127,6 +127,37 @@
   --switch-on: #8ac926;
 }
 
+[data-theme="madre"] {
+  --bg-1: #590d22;
+  --bg-2: #a4133c;
+  --bg-3: #ff4d6d;
+  --bg-4: #ff8fa3;
+  --bg-5: #ffccd5;
+
+  --accent: #c9184a;
+  --accent2: #ff758f;
+  --btn-spin-bg: linear-gradient(135deg, #c9184a, #ff4d6d, #ff8fa3);
+  --btn-spin-shadow: rgba(201, 24, 74, 0.45);
+  --winner-bg: linear-gradient(135deg, #ffccd5, #ff758f);
+  --chip-bg: #fff0f3;
+  --chip-border: #c9184a;
+  --chip-text: #a4133c;
+  --switch-on: #c9184a;
+  --title-color: #fff0f3;
+}
+
+[data-theme="madre"] .bubble {
+  background: transparent;
+  border-radius: 0;
+}
+
+[data-theme="madre"] .bubble::before {
+  content: '❤';
+  color: rgba(255, 255, 255, 0.45);
+  font-size: inherit;
+  display: block;
+}
+
 /* ══════════════════════════════════════════════
    RESET & BASE
 ══════════════════════════════════════════════ */
@@ -191,6 +222,19 @@ body {
   background: rgba(255, 255, 255, 0.18);
   border-radius: 50%;
   animation: rise linear infinite;
+}
+
+.heart-bubble {
+  background: transparent;
+  border-radius: 0;
+}
+
+.heart-bubble::before {
+  content: '❤';
+  color: rgba(255, 255, 255, 0.45);
+  display: block;
+  line-height: 1;
+  filter: drop-shadow(0 4px 8px rgba(201, 24, 74, 0.25));
 }
 
 @keyframes rise {
@@ -898,21 +942,54 @@ body {
   text-align: center;
 }
 
-.copyr{
+.copyr {
   color: #ffffff8a;
   align-items: center;
   justify-content: center;
   text-align: center;
 }
-.footer-nav{
-   text-align: center;
+
+.footer-nav {
+  text-align: center;
 }
 
-footer{
+footer {
   z-index: 99;
-   color: #ffffff8a;
+  color: #ffffff8a;
   font-size: 10px;
   padding: 1rem;
   text-decoration: none;
   padding: 1rem;
+}
+
+
+/**Pets*/
+.kawaii-bear {
+  display: none;
+
+  position: absolute;
+  width: 110px;
+
+  right: -45px;
+  bottom: 286px;
+
+  z-index: 3;
+  pointer-events: none;
+
+  animation: kawaiiFloat 3s ease-in-out infinite;
+}
+
+[data-theme="madre"] .kawaii-bear {
+  display: block;
+}
+
+@media (max-width: 860px) {
+
+  .kawaii-bear {
+    width: 90px;
+    right: -41px;
+    bottom: 211px;
+
+  }
+
 }
