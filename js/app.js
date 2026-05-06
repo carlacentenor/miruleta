@@ -21,7 +21,7 @@ const THEME_TEXT = {
 ══════════════════════════════════════════════ */
 let participants = [];
 let history = [];
-let currentTheme = 'fiesta';
+let currentTheme =  document.body.dataset.defaultTheme || 'fiesta';
 let isSpinning = false;
 let rotation = 0;
 
@@ -465,3 +465,5 @@ renderList();
 renderHistory();
 createBubbles();
 buildWheel();
+applyTheme(currentTheme);
+themeSelect.value = currentTheme;
