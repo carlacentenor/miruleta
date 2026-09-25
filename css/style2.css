@@ -1132,3 +1132,35 @@ a {
     .seo-text h3 {
       text-align: left;
     }
+.seo-text {
+  max-width: 900px;
+}
+
+.seo-text ol,
+.seo-text ul {
+  text-align: left;
+  padding-left: 1.4rem;
+}
+
+.seo-text li {
+  margin-bottom: 0.5rem;
+}
+
+.seo-text p a,
+.seo-text li a,
+.legal-card p a,
+.legal-card li a {
+  color: #6c5ce7;
+  text-decoration: underline;
+}
+
+.legal-footer-nav a {
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+@media (max-width: 600px) {
+  .legal-card {
+    padding: 28px 20px;
+  }
+}
